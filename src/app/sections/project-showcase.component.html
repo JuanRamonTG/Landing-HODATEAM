@@ -1,0 +1,74 @@
+<section id="proyectos" class="project section-dark" data-nav-section aria-labelledby="project-title">
+  <div class="page-width">
+    <div class="project__intro" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__line"></span> 04 / Proyecto destacado</p>
+        <h2 id="project-title">La ciudad en movimiento.<br /><em>Información que acompaña.</em></h2>
+      </div>
+      <div class="project__summary">
+        <span class="project__status"><span></span> Proyecto en desarrollo</span>
+        <h3>StellarTraffic</h3>
+        <p>
+          Una iniciativa de movilidad inteligente que explora navegación, mapas e
+          información vial desde una experiencia móvil.
+        </p>
+      </div>
+    </div>
+
+    <div class="project__divider" aria-hidden="true"></div>
+
+    <div class="project__gallery-wrap" data-reveal>
+      <div class="project__gallery-heading">
+        <span>Prototipo móvil</span>
+        <span>Capturas reales · 01—04</span>
+      </div>
+
+      <div class="project-gallery" aria-label="Capturas del prototipo móvil de StellarTraffic">
+        @for (screen of screens; track screen.src; let index = $index) {
+          <figure class="project-gallery__item">
+            <button
+              class="project-gallery__open"
+              type="button"
+              [attr.aria-label]="'Ampliar captura: ' + screen.title"
+              aria-haspopup="dialog"
+              (click)="openPreview(screen)"
+            >
+              <img
+                [src]="screen.src"
+                [alt]="screen.alt"
+                width="402"
+                height="874"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="project-gallery__zoom" aria-hidden="true">↗</span>
+            </button>
+            <figcaption><span>0{{ index + 1 }}</span> {{ screen.title }}</figcaption>
+          </figure>
+        }
+      </div>
+      <p class="project__caption">Las pantallas corresponden al prototipo actual y pueden cambiar durante su desarrollo.</p>
+    </div>
+  </div>
+
+  <dialog
+    #previewDialog
+    class="screen-dialog"
+    aria-labelledby="screen-dialog-title"
+    (click)="closeOnBackdrop($event)"
+    (cancel)="resetPreview()"
+    (close)="resetPreview()"
+  >
+    @if (selectedScreen(); as screen) {
+      <div class="screen-dialog__panel">
+        <div class="screen-dialog__topbar">
+          <h3 id="screen-dialog-title">{{ screen.title }}</h3>
+          <button class="screen-dialog__close" type="button" aria-label="Cerrar captura" (click)="closePreview()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <img [src]="screen.src" [alt]="screen.alt" width="402" height="874" />
+      </div>
+    }
+  </dialog>
+</section>
