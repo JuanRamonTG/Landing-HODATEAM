@@ -23,9 +23,9 @@ npm run build
 npm test
 ```
 
-Angular genera el sitio listo para publicar en `dist/hodateam/browser/`. El modo de renderizado estático deja el HTML principal prerenderizado: Cloudflare Pages solo necesita archivos estáticos, sin funciones ni servidor.
+Angular genera el sitio listo para publicar en `dist/hodateam/browser/`. `outputMode: "static"` y las rutas de servidor en modo `Prerender` generan HTML estático para `/`; no se necesita un servidor Angular en producción. Workers Static Assets publica ese directorio.
 
-En la revisión de esta entrega, la instalación limpia añadió 367 paquetes; la compilación prerenderizó una ruta sin avisos de estilo y las 2 pruebas pasaron. La inspección del HTML generado confirmó que los enlaces internos, las imágenes y los metadatos estructurados tienen destino. npm reportó 0 vulnerabilidades en la instalación.
+La compilación de producción prerenderiza una ruta; las 2 pruebas unitarias pasan. La inspección del HTML generado confirma que los enlaces internos y los recursos tienen destino. La instalación actual, con Wrangler incluido, reportó 0 vulnerabilidades.
 
 ### Revisión visual y Lighthouse
 
@@ -35,18 +35,27 @@ En escritorio, rendimiento y las otras tres categorías marcaron 100. FCP se man
 
 La revisión visual cubrió 320, 375, 430, 768, 1024, 1440 y 1920 px. No hubo desbordamiento horizontal, imágenes rotas, anclas faltantes ni errores de consola; menú con Escape, galería modal y movimiento reducido funcionaron. Las métricas INP de usuarios reales no están disponibles; TBT es un indicador de laboratorio complementario y la prueba de teclado confirma funcionamiento, no INP. Capturas, datos, investigación comparativa y limitaciones están en [el informe del rediseño](artifacts/redesign/REPORT.md).
 
-Los informes iniciales están en `artifacts/lighthouse/`, y los finales en `artifacts/redesign/`. La prueba se hizo sobre un servidor estático local, que no aplica los encabezados de caché de Cloudflare Pages; por eso la recomendación de caché de Lighthouse debe reevaluarse contra el sitio desplegado.
+Los informes iniciales están en `artifacts/lighthouse/`, y los finales en `artifacts/redesign/`. La prueba se hizo sobre un servidor estático local, que no aplica los encabezados de caché de Cloudflare; por eso la recomendación de caché de Lighthouse debe reevaluarse contra el sitio desplegado.
 
-## Publicar en Cloudflare Pages
+## Publicar en Cloudflare Workers
 
-1. Conecta el repositorio a Cloudflare Pages.
-2. Usa `npm run build` como comando de compilación.
-3. Usa `dist/hodateam/browser` como directorio de salida.
-4. Define `NODE_VERSION=24.15.0` en las variables de entorno del proyecto.
-5. Añade el dominio cuando esté confirmado en `src/app/site-config.ts` y en la configuración del proyecto de Cloudflare.
-6. Despliega de nuevo. Para futuras versiones, actualiza la rama conectada y Cloudflare ejecutará la misma compilación.
+La configuración versionada de Wrangler está en `wrangler.jsonc`: el Worker `hodateam-landing` publica `dist/hodateam/browser/` como Static Assets. El build estático prerenderiza la ruta `/`; no configura fallback SPA porque la landing solo usa anclas y no declara rutas Angular de página. Si luego se agregan rutas prerenderizadas o CSR, revisa el fallback con `index.csr.html` antes de activarlo: el `index.html` actual contiene la página prerenderizada de `/`.
 
-La landing solo tiene navegación por anclas, así que no necesita una regla de rutas cliente. Si después se agregan rutas Angular, configura el fallback de Cloudflare para servir `index.csr.html` en rutas que no se prerendericen.
+### Despliegue manual
+
+```powershell
+npm ci
+npm run build
+npm run deploy:workers
+```
+
+`npm run deploy:workers` ejecuta Wrangler y publica la configuración y los assets en Cloudflare; requiere autenticación previa con `npx wrangler login` o credenciales configuradas localmente. Para validar localmente después del build, ejecuta `npx wrangler dev` y abre la URL local que indique Wrangler.
+
+### Workers Builds desde GitHub
+
+En **Workers & Pages → `hodateam-landing` → Settings → Builds**, conecta este repositorio y configura la raíz del repositorio, la rama de producción `main` (rama actual de esta copia; confirma que sea la rama que quieres publicar), `npm run build` como Build command y `npm run deploy:workers` como Deploy command. Verifica que el nombre del Worker en el dashboard coincida con `name` en `wrangler.jsonc`. `.nvmrc` ya fija Node.js en `24.15.0`; Workers Builds reconoce ese archivo. Si el dashboard no lo detecta, define `NODE_VERSION=24.15.0` en las variables de build. El comando de deploy del dashboard solo publica; no repite el build. Cloudflare instala las dependencias según `packageManager` y usa la versión de Wrangler declarada en `package.json`.
+
+El repositorio no contiene workflows de GitHub Actions y no tiene un remoto Git configurado en esta copia, así que desde aquí no es posible confirmar qué repositorio, rama o commit está conectado al Worker ni si Workers Builds ya está habilitado. Compruébalo en Settings → Builds y en el historial de builds; evita configurar a la vez otra automatización de deploy en GitHub Actions.
 
 ## Dominio y SEO
 

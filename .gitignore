@@ -2,6 +2,7 @@
 
 # Compiled output & caches
 /dist
+/.wrangler
 /tmp
 /temp
 /out-tsc

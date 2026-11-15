@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#000000" />
+    <script>
+      try {
+        if (
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+          !window.sessionStorage.getItem('hodateam-entry-played')
+        ) {
+          document.documentElement.classList.add('entry-active');
+          window.sessionStorage.setItem('hodateam-entry-played', 'true');
+        }
+      } catch {
+        // The page remains available if browser storage is restricted.
+      }
+    </script>
     <meta
       name="description"
       content="HODATEAM es un equipo de desarrollo de software que diseña experiencias digitales y crea aplicaciones web y móviles. Conoce StellarTraffic, su proyecto de movilidad inteligente en desarrollo."

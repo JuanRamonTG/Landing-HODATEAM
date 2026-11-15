@@ -40,6 +40,47 @@ a:focus-visible, button:focus-visible {
 }
 img, svg { max-width: 100%; }
 ::selection { background: var(--ink); color: var(--paper); }
+.entry-split { display: none; }
+.entry-active .entry-split {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+.entry-split__panel {
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 52%;
+  height: 100%;
+  align-items: center;
+  background: #f4f4f4;
+  color: #050505;
+  font-size: clamp(28px, 5vw, 62px);
+  font-weight: 620;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  animation-duration: 820ms;
+  animation-delay: 110ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-fill-mode: both;
+}
+.entry-split__panel--left {
+  left: 0;
+  justify-content: flex-end;
+  padding-right: 3vw;
+  clip-path: polygon(0 0, 100% 0, 96% 6%, 100% 12%, 94% 18%, 100% 24%, 95% 30%, 100% 36%, 94% 42%, 100% 48%, 95% 54%, 100% 60%, 94% 66%, 100% 72%, 95% 78%, 100% 84%, 94% 90%, 100% 96%, 97% 100%, 0 100%);
+  animation-name: entry-split-left;
+}
+.entry-split__panel--right {
+  right: 0;
+  justify-content: flex-start;
+  padding-left: 3vw;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 3% 100%, 0 96%, 6% 90%, 0 84%, 5% 78%, 0 72%, 6% 66%, 0 60%, 5% 54%, 0 48%, 6% 42%, 0 36%, 5% 30%, 0 24%, 6% 18%, 0 12%, 4% 6%);
+  animation-name: entry-split-right;
+}
 .skip-link {
   position: fixed;
   z-index: 50;
@@ -54,6 +95,8 @@ img, svg { max-width: 100%; }
   transform: translateY(-150%);
 }
 .skip-link:focus { transform: translateY(0); }
+@keyframes entry-split-left { to { transform: translateX(-103%); } }
+@keyframes entry-split-right { to { transform: translateX(103%); } }
 .button {
   display: inline-flex;
   align-items: center;
@@ -81,6 +124,7 @@ img, svg { max-width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .entry-split, .entry-active .entry-split { display: none !important; }
   *, *::before, *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;

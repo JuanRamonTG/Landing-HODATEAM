@@ -91,19 +91,29 @@
   transform: perspective(1200px) rotateY(-4deg) rotateZ(1deg);
   animation: preview-arrive 920ms 170ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+.hero__motion {
+  width: 100%;
+  transform: perspective(1100px) rotateX(var(--phone-tilt-y, 0deg)) rotateY(var(--phone-tilt-x, 0deg))
+    translate3d(var(--phone-shift-x, 0px), var(--phone-shift-y, 0px), 0);
+  transform-style: preserve-3d;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero__motion:hover { transition-duration: 140ms; }
 .hero__device {
   position: relative;
   display: block;
   width: 100%;
   padding: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  outline: 1px solid rgba(255, 255, 255, 0.22);
+  outline-offset: 3px;
   border-radius: 36px;
   background: #050505;
   box-shadow: 0 24px 58px rgba(0, 0, 0, 0.42);
   transition: transform 220ms ease, border-color 220ms ease;
 }
 .hero__device:hover { border-color: rgba(255, 255, 255, 0.9); transform: translateY(-4px); }
-.hero__device img { display: block; width: 100%; height: auto; border-radius: 28px; }
+.hero__device img { display: block; width: 100%; height: auto; border-radius: 28px; filter: brightness(1.1) contrast(1.03); }
 .hero__device-island {
   position: absolute;
   z-index: 1;
@@ -133,6 +143,13 @@
   from { transform: scale(1.035); opacity: 0.45; }
   to { transform: scale(1); opacity: 0.74; }
 }
+@keyframes device-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+@media (min-width: 641px) and (pointer: fine) {
+  .hero__motion { animation: device-float 6.4s ease-in-out infinite; }
+}
 @media (max-width: 900px) {
   .hero__inner { grid-template-columns: minmax(0, 1fr) minmax(210px, 0.62fr); column-gap: 28px; }
   .hero h1 { font-size: clamp(50px, 6.6vw, 62px); }
@@ -153,7 +170,8 @@
   .hero__actions { gap: 12px 20px; }
   .hero .button { min-height: 50px; }
   .hero__text-link { display: none; }
-  .hero__preview { position: absolute; right: 7px; bottom: 16px; width: 147px; margin: 0; transform: rotate(2deg); }
+  .hero__preview { position: absolute; right: 7px; bottom: 16px; width: 147px; margin: 0; transform: rotate(2deg); animation: none; }
+  .hero__motion { transform: none; transition: none; animation: none; }
   .hero__device { padding: 5px; border-radius: 25px; }
   .hero__device img { border-radius: 19px; }
   .hero__device-island { top: 9px; width: 42px; height: 9px; }
@@ -168,6 +186,8 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__photo img,
   .hero__copy > *,
-  .hero__preview { animation: none; }
+  .hero__preview,
+  .hero__motion { animation: none; }
+  .hero__motion { transform: none !important; transition: none; translate: 0 0; }
   .hero__device { transition: none; }
 }
