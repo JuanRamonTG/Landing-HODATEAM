@@ -126,8 +126,8 @@ img, svg { max-width: 100%; }
   .motion-pending:not(:focus-within) { opacity: 0; }
   [data-motion-enter].is-visible:not(.motion-initial),
   [data-motion-reveal].is-visible:not(.motion-initial):not(.approach__timeline) { animation: section-arrive 1100ms cubic-bezier(.22,.75,.25,1) var(--motion-delay, 0ms) both; }
-  [data-motion-enter='left'].is-visible:not(.motion-initial), .capability-card--lead.is-visible:not(.motion-initial) { animation-name: section-left; }
-  [data-motion-enter='right'].is-visible:not(.motion-initial), .project__device.is-visible:not(.motion-initial) { animation-name: section-right; }
+  [data-motion-enter='left'].is-visible:not(.motion-initial), .capability-card--lead[data-motion-reveal].is-visible:not(.motion-initial) { animation-name: section-left; }
+  [data-motion-enter='right'].is-visible:not(.motion-initial), .project__device[data-motion-reveal].is-visible:not(.motion-initial) { animation-name: section-right; }
   .approach__step[data-motion-reveal].is-visible:not(.motion-initial) { animation-name: section-scale; animation-duration: 900ms; }
   @media (min-width: 621px) {
     .approach__step[data-motion-reveal]:nth-child(1) { --motion-delay: 0ms !important; }

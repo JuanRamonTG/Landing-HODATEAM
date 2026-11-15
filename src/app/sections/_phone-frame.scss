@@ -1,11 +1,13 @@
 @mixin shell {
+  --phone-frame-radius: clamp(26px, 3vw, 38px);
+  --phone-frame-inset: clamp(8px, 0.8vw, 11px);
   position: relative;
   box-sizing: border-box;
-  padding: clamp(6px, 0.65vw, 9px);
-  border: 1px solid #8c8c8c;
-  border-radius: 12% / 5.5%;
+  padding: var(--phone-frame-inset);
+  border: 1px solid #a5a5a5;
+  border-radius: var(--phone-frame-radius);
   background: #090909;
-  box-shadow: inset 0 0 0 2px #333, inset 0 0 0 4px #111, 0 28px 55px rgba(0, 0, 0, .42);
+  box-shadow: inset 0 0 0 1px #444, 0 20px 45px rgba(0, 0, 0, .42);
 
   &::before, &::after {
     position: absolute;
@@ -22,5 +24,5 @@
 @mixin screen {
   display: block;
   width: 100%;
-  border-radius: 10% / 4.6%;
+  border-radius: calc(var(--phone-frame-radius) - var(--phone-frame-inset) - 1px);
 }

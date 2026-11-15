@@ -88,7 +88,7 @@
 .project__device { display: grid; justify-items: center; min-width: 0; margin: 0; padding: clamp(28px, 4vw, 56px); background: #171717; }
 .project__phone {
   @include phone.shell;
-  width: min(100%, 356px);
+  width: min(100%, 300px);
 }
 .project__phone-screen {
   @include phone.screen;
@@ -169,7 +169,7 @@
   .project__intro { grid-template-columns: 1fr; gap: 24px; }
   .project__summary { max-width: 560px; }
   .project__showcase { grid-template-columns: minmax(0,1fr) minmax(240px,.8fr); gap: 34px; }
-  .project__phone { width: min(100%,310px); }
+  .project__phone { width: min(100%, 270px); }
 }
 @media (max-width: 620px) {
   .project { padding-inline: 22px; }
@@ -193,7 +193,7 @@
   .project-step__copy strong { font-size: 13px; line-height: 1.3; }
   .project-step__copy > span, .project-step svg { display: none; }
   .project__device { width: 100%; padding: 24px; }
-  .project__phone { width: min(100%, 265px); }
+  .project__phone { width: min(100%, 230px); }
   .project__phone-island { top: 11px; width: 45px; height: 10px; }
   .project__screen-detail { min-height: 72px; }
   .project__caption { max-width: 340px; margin-top: 18px; }

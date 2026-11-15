@@ -37,6 +37,7 @@ export class App {
     if (!view || view.matchMedia('(prefers-reduced-motion: reduce)').matches || !view.IntersectionObserver) return;
 
     const revealItems = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-reveal], [data-motion-enter]'));
+    const pendingItems = new Set<HTMLElement>();
     const scenes = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-scene]'));
     const sceneObserver = new view.IntersectionObserver((entries) => {
       for (const entry of entries) {
@@ -49,6 +50,7 @@ export class App {
       for (const entry of entries) {
         const target = entry.target as HTMLElement;
         if (entry.isIntersecting) {
+          pendingItems.delete(target);
           target.classList.remove('motion-pending');
           target.classList.add('is-visible');
           revealObserver.unobserve(target);
@@ -74,6 +76,7 @@ export class App {
         item.classList.add('motion-initial', 'is-visible');
       } else {
         item.classList.add('motion-pending');
+        pendingItems.add(item);
         revealObserver.observe(item);
       }
     });
@@ -81,7 +84,29 @@ export class App {
       scene.classList.add('motion-ready');
       sceneObserver.observe(scene);
     });
-    this.destroyRef.onDestroy(() => { revealObserver.disconnect(); sceneObserver.disconnect(); });
+    let scrollFrame = 0;
+    const revealPassedItems = () => {
+      if (scrollFrame || pendingItems.size === 0) return;
+      scrollFrame = view.requestAnimationFrame(() => {
+        scrollFrame = 0;
+        for (const item of pendingItems) {
+          if (item.getBoundingClientRect().bottom < 0) {
+            item.classList.remove('motion-pending');
+            item.classList.add('motion-initial', 'is-visible');
+            pendingItems.delete(item);
+            revealObserver.unobserve(item);
+          }
+        }
+      });
+    };
+    view.addEventListener('scroll', revealPassedItems, { passive: true });
+    revealPassedItems();
+    this.destroyRef.onDestroy(() => {
+      view.removeEventListener('scroll', revealPassedItems);
+      view.cancelAnimationFrame(scrollFrame);
+      revealObserver.disconnect();
+      sceneObserver.disconnect();
+    });
   }
 
   private applyAbsoluteSiteMetadata(origin: string): void {
