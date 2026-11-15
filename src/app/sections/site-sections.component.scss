@@ -1,7 +1,7 @@
 :host { display: block; }
 .page-width { width: min(100%, var(--content-width)); margin-inline: auto; }
 .section-paper { color: var(--ink); }
-.identity, .capabilities, .approach { padding: clamp(90px, 10vw, 145px) var(--gutter); }
+.identity, .capabilities, .approach { padding: clamp(100px, 11vw, 160px) var(--gutter); }
 .identity { background: var(--paper); scroll-margin-top: 80px; }
 .identity__grid {
   display: grid;
@@ -49,12 +49,13 @@
   justify-content: space-between;
   overflow: hidden;
   padding: clamp(24px, 3.2vw, 40px);
-  border: 1px solid #444444;
-  border-radius: 14px;
-  background: #111111;
+  border: 0;
+  border-top: 1px solid #666666;
+  border-radius: 0;
+  background: transparent;
   color: #ffffff;
 }
-.capability-card--lead { grid-column: span 7; grid-row: span 2; min-height: 500px; border-color: #ffffff; background: #f2f2ef; color: #050505; }
+.capability-card--lead { grid-column: span 7; grid-row: span 2; min-height: 500px; border: 0; border-radius: 4px; background: #f2f2ef; color: #050505; }
 .capability-card--web, .capability-card--engineering { grid-column: span 5; min-height: 242px; }
 .capability-card__art { width: 58px; height: 58px; color: #ffffff; flex: none; }
 .capability-card__art--lead {
@@ -190,9 +191,9 @@
   .capabilities__heading { margin-bottom: 34px; }
   .capabilities__heading p, .approach__heading p { font-size: 14px; }
   .capabilities__cards { grid-template-columns: 1fr; grid-template-rows: none; gap: 12px; }
-  .capability-card--lead, .capability-card--web, .capability-card--engineering { grid-column: auto; grid-row: auto; min-height: 255px; }
+  .capability-card--lead, .capability-card--web, .capability-card--engineering { grid-column: auto; grid-row: auto; min-height: 205px; }
   .capability-card--lead { min-height: 325px; }
-  .capability-card { padding: 25px; border-radius: 13px; }
+  .capability-card { padding: 25px; }
   .capability-card__art--lead { top: 16px; right: 16px; left: 16px; width: calc(100% - 32px); }
   .city-scene { min-height: 650px; padding: 90px 22px 76px; }
   .city-scene__map { opacity: 0.34; }

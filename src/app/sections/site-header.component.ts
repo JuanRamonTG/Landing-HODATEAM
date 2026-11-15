@@ -24,34 +24,64 @@ export class SiteHeaderComponent implements AfterViewInit, OnDestroy {
   protected readonly activeSection = signal('inicio');
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private sectionObserver?: IntersectionObserver;
+  private navSections: HTMLElement[] = [];
+  private readonly handleViewportResize = (): void => this.observeNavSections();
 
   ngAfterViewInit(): void {
     if (!this.isBrowser) return;
     this.updateScrollState();
     if (!('IntersectionObserver' in window)) return;
 
+    this.navSections = Array.from(document.querySelectorAll<HTMLElement>('main [data-nav-section]'));
+    this.observeNavSections();
+    window.addEventListener('resize', this.handleViewportResize, { passive: true });
+  }
+
+  private observeNavSections(): void {
+    if (!this.isBrowser || !('IntersectionObserver' in window)) return;
+
+    // Vertical root margins are calculated in pixels because percentage margins
+    // are based on viewport width, which can collapse the observer on desktop.
+    const viewportHeight = window.innerHeight;
+    const focusBand = Math.max(8, Math.round(viewportHeight * 0.02));
+    const focusTop = Math.round(viewportHeight * 0.38);
+    const focusBottom = Math.max(0, viewportHeight - focusTop - focusBand);
+
+    this.sectionObserver?.disconnect();
     this.sectionObserver = new IntersectionObserver(
       (entries) => {
-        const visible = entries
+        const active = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) this.activeSection.set(visible.target.id);
+          .sort((a, b) => {
+            const focusY = focusTop + focusBand / 2;
+            const distanceA = Math.abs((a.boundingClientRect.top + a.boundingClientRect.bottom) / 2 - focusY);
+            const distanceB = Math.abs((b.boundingClientRect.top + b.boundingClientRect.bottom) / 2 - focusY);
+            return distanceA - distanceB;
+          })[0];
+
+        if (active) this.activeSection.set(active.target.id);
       },
-      { rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.15, 0.4] },
+      {
+        rootMargin: `-${focusTop}px 0px -${focusBottom}px 0px`,
+        threshold: 0,
+      },
     );
 
-    document.querySelectorAll<HTMLElement>('main [data-nav-section]').forEach((section) => {
+    this.navSections.forEach((section) => {
       this.sectionObserver?.observe(section);
     });
   }
 
   ngOnDestroy(): void {
     this.sectionObserver?.disconnect();
+    if (this.isBrowser) window.removeEventListener('resize', this.handleViewportResize);
   }
 
   @HostListener('window:scroll')
   protected updateScrollState(): void {
-    if (this.isBrowser) this.isScrolled.set(window.scrollY > 18);
+    if (!this.isBrowser) return;
+    const next = window.scrollY > 18;
+    if (next !== this.isScrolled()) this.isScrolled.set(next);
   }
 
   @HostListener('document:keydown.escape')

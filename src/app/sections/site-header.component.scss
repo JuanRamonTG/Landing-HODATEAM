@@ -13,11 +13,10 @@
   min-height: 78px;
   padding: 0 var(--gutter);
   border-bottom: 1px solid transparent;
-  transition: min-height 220ms ease, background-color 220ms ease, border-color 220ms ease;
+  transition: background-color 220ms ease, border-color 220ms ease;
 }
 
 .site-header--scrolled {
-  min-height: 68px;
   border-color: rgba(255, 255, 255, 0.14);
   background: rgba(0, 0, 0, 0.96);
 }
@@ -38,38 +37,51 @@
 .site-header__nav {
   display: flex;
   align-items: center;
-  gap: clamp(20px, 2.7vw, 38px);
+  gap: clamp(4px, 1vw, 14px);
 }
 
-.site-header__nav a {
+.site-header__nav a:not(.site-header__contact) {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding-inline: 7px;
+  border-radius: 2px;
   color: rgba(255, 255, 255, 0.76);
   font-size: 11px;
   font-weight: 600;
-  transition: color 160ms ease;
+  transition: color 160ms ease, background-color 160ms ease;
 }
 
 .site-header__nav a:not(.site-header__contact)::after {
   position: absolute;
-  right: 0;
-  bottom: -8px;
-  left: 0;
+  right: 7px;
+  bottom: 4px;
+  left: 7px;
   height: 1px;
-  background: var(--accent);
+  background: currentColor;
   content: '';
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 180ms ease;
 }
 
-.site-header__nav a:hover,
-.site-header__nav a[aria-current='location'] {
-  color: var(--text);
+.site-header__nav a:not(.site-header__contact):hover {
+  color: #ffffff;
 }
 
-.site-header__nav a:hover::after,
-.site-header__nav a[aria-current='location']::after {
+.site-header__nav a:not(.site-header__contact):hover::after {
   transform: scaleX(1);
+}
+
+.site-header__nav a[aria-current='location'] {
+  background: #ffffff;
+  color: #050505;
+}
+
+.site-header__nav a[aria-current='location']::after {
+  transform: scaleX(0);
 }
 
 .site-header__nav .site-header__contact {
@@ -81,11 +93,25 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 2px;
   color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
 .site-header__nav .site-header__contact:hover {
   border-color: #ffffff;
   color: #ffffff;
+}
+
+.site-header__nav .site-header__contact[aria-current='location'] {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+}
+
+.site-header :is(a, button):focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
 }
 
 .site-header__toggle {
@@ -94,7 +120,6 @@
 
 @media (max-width: 800px) {
   .site-header { min-height: 68px; padding-inline: 19px; }
-  .site-header--scrolled { min-height: 62px; }
   .site-header__brand img { width: 145px; }
 
   .site-header__toggle {
@@ -151,16 +176,22 @@
   }
 
   .site-header__nav a:not(.site-header__contact) {
-    padding: 12px 2px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    justify-content: flex-start;
+    min-height: 44px;
+    padding-inline: 12px;
   }
 
   .site-header__nav a:not(.site-header__contact)::after { content: none; }
-  .site-header__nav .site-header__contact { justify-content: space-between; margin-block: 11px 3px; }
+  .site-header__nav .site-header__contact {
+    justify-content: space-between;
+    min-height: 44px;
+    margin-block: 8px 3px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .site-header,
   .site-header__nav,
+  .site-header__nav a,
   .site-header__toggle span { transition: none; }
 }

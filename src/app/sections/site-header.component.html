@@ -21,10 +21,11 @@
     [class.site-header__nav--open]="menuOpen()"
     aria-label="Navegación principal"
   >
+    <a href="#inicio" [attr.aria-current]="isCurrent('inicio') ? 'location' : null" (click)="closeMenu()">Inicio</a>
     <a href="#identidad" [attr.aria-current]="isCurrent('identidad') ? 'location' : null" (click)="closeMenu()">El equipo</a>
     <a href="#capacidades" [attr.aria-current]="isCurrent('capacidades') ? 'location' : null" (click)="closeMenu()">Capacidades</a>
-    <a href="#proyectos" [attr.aria-current]="isCurrent('proyectos') ? 'location' : null" (click)="closeMenu()">Proyectos</a>
     <a href="#enfoque" [attr.aria-current]="isCurrent('enfoque') ? 'location' : null" (click)="closeMenu()">Enfoque</a>
+    <a href="#proyectos" [attr.aria-current]="isCurrent('proyectos') ? 'location' : null" (click)="closeMenu()">Proyectos</a>
     <a
       class="site-header__contact"
       href="#codigo-abierto"

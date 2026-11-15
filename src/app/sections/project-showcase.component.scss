@@ -83,7 +83,7 @@
 .project-step svg { opacity: 0; transform: translateX(-5px); transition: opacity 180ms ease, transform 180ms ease; }
 .project-step:hover svg, .project-step[aria-pressed='true'] svg { opacity: 1; transform: translateX(0); }
 .project__caption { max-width: 420px; margin: 24px 0 0; color: #bcbcbc; font-size: 11px; line-height: 1.7; }
-.project__device { display: grid; justify-items: center; min-width: 0; margin: 0; }
+.project__device { display: grid; justify-items: center; min-width: 0; margin: 0; padding: clamp(28px, 4vw, 56px); background: #171717; }
 .project__phone {
   position: relative;
   width: clamp(250px, 28vw, 356px);

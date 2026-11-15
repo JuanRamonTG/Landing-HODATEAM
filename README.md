@@ -53,9 +53,9 @@ npm run deploy:workers
 
 ### Workers Builds desde GitHub
 
-En **Workers & Pages → `hodateam-landing` → Settings → Builds**, conecta este repositorio y configura la raíz del repositorio, la rama de producción `main` (rama actual de esta copia; confirma que sea la rama que quieres publicar), `npm run build` como Build command y `npm run deploy:workers` como Deploy command. Verifica que el nombre del Worker en el dashboard coincida con `name` en `wrangler.jsonc`. `.nvmrc` ya fija Node.js en `24.15.0`; Workers Builds reconoce ese archivo. Si el dashboard no lo detecta, define `NODE_VERSION=24.15.0` en las variables de build. El comando de deploy del dashboard solo publica; no repite el build. Cloudflare instala las dependencias según `packageManager` y usa la versión de Wrangler declarada en `package.json`.
+En **Workers & Pages → `hodateam-landing` → Settings → Builds**, conecta este repositorio y configura la raíz del repositorio, la rama de producción `main` (rama actual de esta copia; confirma que sea la rama que quieres publicar), `npm run build` como Build command, `npx wrangler deploy` como Deploy command y `npx wrangler preview` como Preview command. Verifica que el nombre del Worker en el dashboard coincida con `name` en `wrangler.jsonc`. `.nvmrc` ya fija Node.js en `24.15.0`; Workers Builds reconoce ese archivo. Si el dashboard no lo detecta, define `NODE_VERSION=24.15.0` en las variables de build. Cloudflare instala las dependencias según `packageManager` y usa la versión de Wrangler declarada en `package.json`.
 
-El repositorio no contiene workflows de GitHub Actions y no tiene un remoto Git configurado en esta copia, así que desde aquí no es posible confirmar qué repositorio, rama o commit está conectado al Worker ni si Workers Builds ya está habilitado. Compruébalo en Settings → Builds y en el historial de builds; evita configurar a la vez otra automatización de deploy en GitHub Actions.
+El repositorio no contiene workflows de GitHub Actions. Aunque esta copia tiene `origin` configurado, el dashboard y su historial de builds no son visibles desde el repo; confirma allí que el Worker esté conectado a este repositorio y a la rama de producción elegida. Evita configurar a la vez otra automatización de deploy en GitHub Actions.
 
 ## Dominio y SEO
 
