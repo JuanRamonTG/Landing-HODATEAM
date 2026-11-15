@@ -1,3 +1,5 @@
+@use 'phone-frame' as phone;
+
 :host { display: block; }
 .hero {
   position: relative;
@@ -100,20 +102,13 @@
 }
 .hero__motion:hover { transition-duration: 140ms; }
 .hero__device {
-  position: relative;
+  @include phone.shell;
   display: block;
   width: 100%;
-  padding: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  outline: 1px solid rgba(255, 255, 255, 0.22);
-  outline-offset: 3px;
-  border-radius: 36px;
-  background: #050505;
-  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.42);
   transition: transform 220ms ease, border-color 220ms ease;
 }
-.hero__device:hover { border-color: rgba(255, 255, 255, 0.9); transform: translateY(-4px); }
-.hero__device img { display: block; width: 100%; height: auto; border-radius: 28px; filter: brightness(1.1) contrast(1.03); }
+.hero__device:hover { border-color: #c2c2c2; transform: translateY(-4px); }
+.hero__device img { @include phone.screen; height: auto; filter: brightness(1.1) contrast(1.03); }
 .hero__device-island {
   position: absolute;
   z-index: 1;
@@ -169,17 +164,15 @@
   .hero__intro { max-width: 370px; margin: 21px 0 24px; font-size: 14px; }
   .hero__actions { gap: 12px 20px; }
   .hero .button { min-height: 50px; }
-  .hero__preview { position: relative; right: auto; bottom: auto; width: min(56vw, 225px); margin: 46px 10% 0 auto; transform: rotate(2deg); animation: none; }
+  .hero__preview { position: relative; right: auto; bottom: auto; width: min(66%, 220px); max-width: 100%; margin: 44px auto 0; transform: none; animation: none; }
   .hero__motion { transform: none; transition: none; animation: none; }
-  .hero__device { padding: 5px; border-radius: 25px; }
-  .hero__device img { border-radius: 19px; }
   .hero__device-island { top: 9px; width: 42px; height: 9px; }
   .hero__preview figcaption { margin-top: 8px; font-size: 9px; }
 }
 @media (max-width: 360px) {
   .hero { padding-inline: 19px; }
   .hero h1 { font-size: 43px; }
-  .hero__preview { width: min(56vw, 190px); }
+  .hero__preview { width: min(66%, 190px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__photo img,

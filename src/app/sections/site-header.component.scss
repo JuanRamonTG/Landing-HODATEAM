@@ -67,15 +67,15 @@
   transition: transform 180ms ease;
 }
 
-.site-header__nav a:not(.site-header__contact):hover {
+.site-header__nav a:not(.site-header__contact):not([aria-current='location']):hover {
   color: #ffffff;
 }
 
-.site-header__nav a:not(.site-header__contact):hover::after {
+.site-header__nav a:not(.site-header__contact):not([aria-current='location']):hover::after {
   transform: scaleX(1);
 }
 
-.site-header__nav a[aria-current='location'] {
+.site-header__nav a:not(.site-header__contact)[aria-current='location'] {
   background: #ffffff;
   color: #050505;
 }
