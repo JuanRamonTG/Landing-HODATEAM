@@ -1,46 +1,32 @@
 <section id="inicio" class="hero" data-nav-section aria-labelledby="hero-title">
-  <img
-    class="hero__photo"
-    src="/assets/city-at-night.webp"
-    alt="Luces de una ciudad y sus avenidas vistas al caer la noche"
-    width="1800"
-    height="1200"
-    fetchpriority="high"
-    decoding="async"
-  />
+  <picture class="hero__photo">
+    <source media="(max-width: 640px)" srcset="/assets/city-at-night-mobile.webp" />
+    <img src="/assets/city-at-night.webp" alt="" width="1800" height="1200" fetchpriority="high" decoding="async" />
+  </picture>
   <div class="hero__veil" aria-hidden="true"></div>
   <svg class="hero__route" viewBox="0 0 650 500" fill="none" aria-hidden="true">
     <path d="M641 16C458 91 496 156 393 176S196 144 189 242s146 123 101 194S120 443 19 476" stroke="currentColor" stroke-width="1.2" />
     <circle cx="393" cy="176" r="5" fill="currentColor" />
     <circle cx="290" cy="436" r="4" fill="currentColor" />
   </svg>
-
   <div class="hero__inner page-width">
     <div class="hero__copy">
-      <p class="hero__eyebrow"><span></span> Software · diseño de producto · tecnología</p>
-      <h1 id="hero-title">Buenas ideas.<br /><em>Bien construidas.</em></h1>
+      <h1 id="hero-title">Ideas que<br /><em>encuentran su ruta.</em></h1>
       <p class="hero__intro">
-        Diseñamos experiencias digitales y desarrollamos aplicaciones web y móviles con
-        atención a cada detalle.
+        Diseñamos productos digitales y construimos la tecnología que los pone en marcha:
+        del primer problema al último detalle de uso.
       </p>
-      <a class="button button--primary" href="#proyectos">
-        Explorar StellarTraffic <span aria-hidden="true">↘</span>
-      </a>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#proyectos">Explorar StellarTraffic</a>
+        <a class="hero__text-link" href="#capacidades">Qué hacemos</a>
+      </div>
     </div>
-
-    <figure class="hero__preview" aria-label="Vista real de StellarTraffic, un proyecto en desarrollo">
-      <img
-        src="/assets/stellar-leyenda.webp"
-        alt="Captura del prototipo de StellarTraffic con el mapa de San José y la leyenda de tráfico plegada"
-        width="402"
-        height="874"
-        decoding="async"
-      />
-      <figcaption><span>01 / 04</span> Prototipo móvil · en desarrollo</figcaption>
+    <figure class="hero__preview">
+      <a class="hero__device" href="#proyectos" aria-label="Conocer el prototipo de StellarTraffic">
+        <span class="hero__device-island" aria-hidden="true"></span>
+        <img src="/assets/stellar-zoom.webp" alt="Prototipo de StellarTraffic con el mapa de San José y la leyenda de tráfico abierta" width="402" height="874" decoding="async" />
+      </a>
+      <figcaption>Una vista del prototipo móvil en desarrollo</figcaption>
     </figure>
-
-    <a class="hero__scroll" href="#identidad" aria-label="Continuar a la presentación de HODATEAM">
-      <span aria-hidden="true">↓</span> Desplaza para conocer HODATEAM
-    </a>
   </div>
 </section>

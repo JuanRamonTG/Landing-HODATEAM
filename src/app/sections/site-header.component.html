@@ -1,6 +1,6 @@
 <header class="site-header" [class.site-header--scrolled]="isScrolled()">
   <a class="site-header__brand" href="#inicio" aria-label="HODATEAM, inicio" (click)="closeMenu()">
-    <img src="/assets/hodateam-logo.png" alt="HODATEAM" width="166" height="28" />
+    <img src="/assets/hodateam-logo.webp" alt="HODATEAM" width="166" height="28" fetchpriority="high" />
   </a>
 
   <button
@@ -25,6 +25,13 @@
     <a href="#capacidades" [attr.aria-current]="isCurrent('capacidades') ? 'location' : null" (click)="closeMenu()">Capacidades</a>
     <a href="#proyectos" [attr.aria-current]="isCurrent('proyectos') ? 'location' : null" (click)="closeMenu()">Proyectos</a>
     <a href="#enfoque" [attr.aria-current]="isCurrent('enfoque') ? 'location' : null" (click)="closeMenu()">Enfoque</a>
-    <a class="site-header__contact" href="#contacto" (click)="closeMenu()">Contacto <span aria-hidden="true">↗</span></a>
+    <a
+      class="site-header__contact"
+      href="#codigo-abierto"
+      [attr.aria-current]="isCurrent('codigo-abierto') ? 'location' : null"
+      (click)="closeMenu()"
+    >
+      Código abierto
+    </a>
   </nav>
 </header>

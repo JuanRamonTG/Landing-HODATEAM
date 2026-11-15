@@ -1,71 +1,58 @@
-<section id="proyectos" class="project section-dark" data-nav-section aria-labelledby="project-title">
+<section id="proyectos" class="project" data-nav-section aria-labelledby="project-title">
   <div class="page-width">
-    <div class="project__intro" data-reveal>
-      <div>
-        <p class="eyebrow"><span class="eyebrow__line"></span> 04 / Proyecto destacado</p>
-        <h2 id="project-title">La ciudad en movimiento.<br /><em>Información que acompaña.</em></h2>
+    <div class="project__intro">
+      <div class="project__headline">
+        <h2 id="project-title">StellarTraffic</h2>
+        <span class="project__status">Prototipo en desarrollo</span>
       </div>
-      <div class="project__summary">
-        <span class="project__status"><span></span> Proyecto en desarrollo</span>
-        <h3>StellarTraffic</h3>
-        <p>
-          Una iniciativa de movilidad inteligente que explora navegación, mapas e
-          información vial desde una experiencia móvil.
-        </p>
-      </div>
+      <p class="project__summary">
+        Una app de movilidad inteligente en forma de prototipo móvil. Estas pantallas muestran
+        el mapa de San José, la leyenda de niveles de tráfico y el ajuste de ubicación de un reporte.
+      </p>
     </div>
-
-    <div class="project__divider" aria-hidden="true"></div>
-
-    <div class="project__gallery-wrap" data-reveal>
-      <div class="project__gallery-heading">
-        <span>Prototipo móvil</span>
-        <span>Capturas reales · 01—04</span>
+    <div class="project__showcase">
+      <div class="project__navigator">
+        <h3>Recorre el prototipo</h3>
+        <p class="project__hint">Elige una pantalla. Toca la vista para ampliarla.</p>
+        <ol class="project-steps" data-motion-group>
+          @for (screen of screens; track screen.src; let index = $index) {
+            <li class="project-step-shell" data-motion-reveal>
+              <button class="project-step" type="button" [attr.aria-pressed]="activeScreen().src === screen.src" (click)="selectScreen(screen)">
+                <span class="project-step__index">0{{ index + 1 }}</span>
+                <span class="project-step__copy"><strong>{{ screen.title }}</strong><span>{{ screen.description }}</span></span>
+                <svg aria-hidden="true" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h11M10 5l5 5-5 5" /></svg>
+              </button>
+            </li>
+          }
+        </ol>
+        <p class="project__caption">Capturas reales del prototipo actual. La interfaz puede cambiar mientras avanza su desarrollo.</p>
       </div>
-
-      <div class="project-gallery" aria-label="Capturas del prototipo móvil de StellarTraffic">
-        @for (screen of screens; track screen.src; let index = $index) {
-          <figure class="project-gallery__item">
-            <button
-              class="project-gallery__open"
-              type="button"
-              [attr.aria-label]="'Ampliar captura: ' + screen.title"
-              aria-haspopup="dialog"
-              (click)="openPreview(screen)"
-            >
-              <img
-                [src]="screen.src"
-                [alt]="screen.alt"
-                width="402"
-                height="874"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="project-gallery__zoom" aria-hidden="true">↗</span>
-            </button>
-            <figcaption><span>0{{ index + 1 }}</span> {{ screen.title }}</figcaption>
-          </figure>
-        }
-      </div>
-      <p class="project__caption">Las pantallas corresponden al prototipo actual y pueden cambiar durante su desarrollo.</p>
+      <figure class="project__device" data-motion-reveal>
+        <div class="project__phone">
+          <span class="project__phone-island" aria-hidden="true"></span>
+          <div class="project__phone-screen">
+            @for (screen of activeScreenList(); track screen.src) {
+              <button class="project-gallery__open" type="button" [attr.aria-label]="'Ampliar pantalla: ' + screen.title" aria-haspopup="dialog" (click)="openPreview(screen)">
+                <img [src]="screen.src" [alt]="screen.alt" width="402" height="874" loading="lazy" decoding="async" />
+              </button>
+            }
+          </div>
+        </div>
+        <figcaption class="project__screen-detail" aria-live="polite" aria-atomic="true">
+          @if (activeScreen(); as screen) {
+            <strong>{{ screen.title }}</strong>
+            <p>{{ screen.description }}</p>
+          }
+        </figcaption>
+      </figure>
     </div>
   </div>
-
-  <dialog
-    #previewDialog
-    class="screen-dialog"
-    aria-labelledby="screen-dialog-title"
-    (click)="closeOnBackdrop($event)"
-    (cancel)="resetPreview()"
-    (close)="resetPreview()"
-  >
+  <dialog #previewDialog class="screen-dialog" aria-labelledby="screen-dialog-title" (click)="closeOnBackdrop($event)" (cancel)="resetPreview()" (close)="resetPreview()">
     @if (selectedScreen(); as screen) {
       <div class="screen-dialog__panel">
         <div class="screen-dialog__topbar">
           <h3 id="screen-dialog-title">{{ screen.title }}</h3>
-          <button class="screen-dialog__close" type="button" aria-label="Cerrar captura" (click)="closePreview()">
-            <span aria-hidden="true">×</span>
-          </button>
+          <button class="screen-dialog__close" type="button" aria-label="Cerrar pantalla ampliada" (click)="closePreview()"><span aria-hidden="true">×</span></button>
         </div>
         <img [src]="screen.src" [alt]="screen.alt" width="402" height="874" />
       </div>

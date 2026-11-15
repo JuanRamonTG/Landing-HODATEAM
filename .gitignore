@@ -1,17 +1,58 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# Compiled output
+# Compiled output & caches
 /dist
 /tmp
+/temp
 /out-tsc
 /bazel-out
+/.angular
+.sass-cache/
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.prettiercache
 
-# Node
+# Dependencies
 /node_modules
-npm-debug.log
-yarn-error.log
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
-# IDEs and editors
+# Logs and debug files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+/libpeerconnection.log
+testem.log
+
+# Environment variables & local configuration
+.env
+.env.*
+!.env.example
+!.env.template
+*.local
+
+# Testing and coverage
+/coverage
+/.nyc_output
+/connect.lock
+/typings
+__screenshots__/
+/playwright-report
+/blob-report
+/test-results
+
+# IDEs, editors and tooling
 .idea/
 .project
 .classpath
@@ -19,6 +60,20 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# AI assistants and local agent configs
+.codex/
+.claude/
+.cursor/
+.gemini/
+.windsurf/
 
 # Visual Studio Code
 .vscode/*
@@ -29,16 +84,16 @@ yarn-error.log
 !.vscode/mcp.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
 # System files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk

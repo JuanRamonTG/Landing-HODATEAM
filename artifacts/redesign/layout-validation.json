@@ -1,0 +1,183 @@
+{
+  "responsive": [
+    {
+      "viewport": 320,
+      "pageWidth": 320,
+      "pageHeight": 6747,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-320.png"
+    },
+    {
+      "viewport": 375,
+      "pageWidth": 375,
+      "pageHeight": 6660,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-375.png"
+    },
+    {
+      "viewport": 430,
+      "pageWidth": 430,
+      "pageHeight": 6697,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-430.png"
+    },
+    {
+      "viewport": 768,
+      "pageWidth": 768,
+      "pageHeight": 5086,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-768.png"
+    },
+    {
+      "viewport": 1024,
+      "pageWidth": 1024,
+      "pageHeight": 5616,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-1024.png"
+    },
+    {
+      "viewport": 1440,
+      "pageWidth": 1440,
+      "pageHeight": 6429,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-1440.png"
+    },
+    {
+      "viewport": 1920,
+      "pageWidth": 1920,
+      "pageHeight": 6435,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pendingImages": [],
+      "missingAnchors": [],
+      "sections": 7,
+      "navigationLinks": 5,
+      "ctas": [
+        "#proyectos",
+        "https://github.com/StellarTraffic-organization"
+      ],
+      "revealItems": 11,
+      "revealedItems": 11,
+      "activeProjectScreen": "Mapa de San José",
+      "screenshot": "C:\\Dev\\Landing HODATEAM\\artifacts\\redesign\\responsive-1920.png"
+    }
+  ],
+  "reducedMotion": {
+    "active": true,
+    "hiddenRevealItems": 0,
+    "documentScrollBehavior": "auto"
+  },
+  "motionScene": {
+    "whileVisible": {
+      "active": true,
+      "routeDrawn": true,
+      "flowAnimation": "_ngcontent-ng-c2310011748_route-flow"
+    },
+    "whileOffscreen": {
+      "active": false,
+      "flowAnimation": "none"
+    }
+  },
+  "prototypeSteps": {
+    "pressedState": "true",
+    "imageMatches": true,
+    "detailUpdates": true
+  },
+  "menu": {
+    "opened": true,
+    "closedWithEscape": true
+  },
+  "keyboard": {
+    "firstTabFocusesSkipLink": true,
+    "focusedTag": "A",
+    "focusedClass": "skip-link",
+    "focusedHref": "#contenido",
+    "focusVisibleOnScreen": true,
+    "focusBackground": "rgb(5, 5, 5)",
+    "focusText": "rgb(255, 255, 255)"
+  },
+  "gallery": {
+    "opened": true,
+    "focusInsideDialog": true,
+    "reachedByTab": true,
+    "tabsToButton": 9,
+    "openedWithEnter": true
+  },
+  "galleryAfterEscape": {
+    "closed": true,
+    "focusReturned": true
+  },
+  "consoleErrors": []
+}

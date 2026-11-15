@@ -5,7 +5,7 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#071114" />
+    <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="HODATEAM es un equipo de desarrollo de software que diseña experiencias digitales y crea aplicaciones web y móviles. Conoce StellarTraffic, su proyecto de movilidad inteligente en desarrollo."
@@ -41,7 +41,8 @@
       }
     </script>
     <link rel="icon" type="image/png" sizes="64x64" href="/assets/hodateam-favicon.png" />
-    <link rel="preload" as="image" href="/assets/city-at-night.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/assets/city-at-night.webp" media="(min-width: 641px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/assets/city-at-night-mobile.webp" media="(max-width: 640px)" fetchpriority="high" />
     <title>HODATEAM — Diseño y desarrollo de software</title>
   </head>
   <body>

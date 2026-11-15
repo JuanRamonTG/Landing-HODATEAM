@@ -3,9 +3,9 @@
 }
 
 .site-footer {
-  padding: 26px var(--gutter);
-  background: var(--ink);
-  color: var(--muted);
+  padding: 24px var(--gutter);
+  background: #000000;
+  color: #bdbdbd;
 }
 
 .site-footer__inner {
@@ -15,12 +15,14 @@
   gap: 20px;
   width: min(100%, var(--content-width));
   margin-inline: auto;
-  font-size: 12px;
+  padding-top: 19px;
+  border-top: 1px solid var(--line-light);
+  font-size: 10px;
 }
 
 .site-footer__brand {
-  color: var(--paper);
-  font-size: 11px;
+  color: #ffffff;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.14em;
 }

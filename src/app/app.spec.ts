@@ -9,7 +9,7 @@ describe('HODATEAM landing', () => {
     fixture.detectChanges();
 
     const root = fixture.nativeElement as HTMLElement;
-    for (const id of ['identidad', 'capacidades', 'proyectos', 'enfoque', 'contacto']) {
+    for (const id of ['identidad', 'capacidades', 'proyectos', 'enfoque', 'codigo-abierto']) {
       expect(root.querySelector(`#${id}`)).not.toBeNull();
     }
   });
