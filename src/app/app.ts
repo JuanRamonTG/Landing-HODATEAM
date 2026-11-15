@@ -36,20 +36,25 @@ export class App {
     const view = this.document.defaultView;
     if (!view || view.matchMedia('(prefers-reduced-motion: reduce)').matches || !view.IntersectionObserver) return;
 
-    const revealItems = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-reveal]'));
+    const revealItems = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-reveal], [data-motion-enter]'));
     const scenes = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-scene]'));
-    const observer = new view.IntersectionObserver((entries) => {
+    const sceneObserver = new view.IntersectionObserver((entries) => {
       for (const entry of entries) {
         const target = entry.target as HTMLElement;
-        if (target.matches('[data-motion-scene]')) {
-          target.classList.toggle('is-active', entry.isIntersecting);
-          if (entry.isIntersecting) target.classList.add('has-played');
-        } else if (entry.isIntersecting) {
+        target.classList.toggle('is-active', entry.isIntersecting);
+        if (entry.isIntersecting) target.classList.add('has-played');
+      }
+    }, { threshold: 0 });
+    const revealObserver = new view.IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const target = entry.target as HTMLElement;
+        if (entry.isIntersecting) {
+          target.classList.remove('motion-pending');
           target.classList.add('is-visible');
-          observer.unobserve(target);
+          revealObserver.unobserve(target);
         }
       }
-    }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold: 0, rootMargin: '-8% 0px -35% 0px' });
 
     const groupedItems = new Set<HTMLElement>();
     const groups = Array.from(this.document.querySelectorAll<HTMLElement>('[data-motion-group]'));
@@ -64,13 +69,19 @@ export class App {
     revealItems.forEach((item) => {
       if (!groupedItems.has(item)) item.style.setProperty('--motion-delay', '0ms');
       item.classList.add('motion-ready');
-      observer.observe(item);
+      const rect = item.getBoundingClientRect();
+      if (rect.top < view.innerHeight && rect.bottom > 0) {
+        item.classList.add('motion-initial', 'is-visible');
+      } else {
+        item.classList.add('motion-pending');
+        revealObserver.observe(item);
+      }
     });
     scenes.forEach((scene) => {
       scene.classList.add('motion-ready');
-      observer.observe(scene);
+      sceneObserver.observe(scene);
     });
-    this.destroyRef.onDestroy(() => observer.disconnect());
+    this.destroyRef.onDestroy(() => { revealObserver.disconnect(); sceneObserver.disconnect(); });
   }
 
   private applyAbsoluteSiteMetadata(origin: string): void {

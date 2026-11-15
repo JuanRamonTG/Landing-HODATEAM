@@ -18,12 +18,10 @@
   text-wrap: balance;
 }
 .identity h2 em, .capabilities h2 em, .approach h2 em {
-  color: inherit;
-  font-family: inherit;
   font-style: normal;
-  font-weight: inherit;
 }
 .identity__copy { max-width: 430px; padding-bottom: 4px; }
+.identity__diagram { display: block; width: min(100%, 330px); margin: 0 0 35px; color: #474747; }
 .identity__copy p { margin: 0; color: #4f4f4f; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.8; }
 .capabilities { background: #050505; color: #ffffff; scroll-margin-top: 78px; }
 .capabilities__heading {
@@ -58,6 +56,7 @@
 .capability-card--lead { grid-column: span 7; grid-row: span 2; min-height: 500px; border: 0; border-radius: 4px; background: #f2f2ef; color: #050505; }
 .capability-card--web, .capability-card--engineering { grid-column: span 5; min-height: 242px; }
 .capability-card__art { width: 58px; height: 58px; color: #ffffff; flex: none; }
+.capability-card__art--wide { width: 160px; height: 76px; max-width: 55%; opacity: .85; }
 .capability-card__art--lead {
   position: absolute;
   top: 22px;
@@ -122,10 +121,15 @@
 .city-scene__node { fill: #ffffff; transform-box: fill-box; transform-origin: center; }
 .city-scene.motion-ready .city-scene__route { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .city-scene.has-played .city-scene__route { animation: route-draw 2.4s cubic-bezier(0.16,1,0.3,1) forwards; }
-.city-scene.is-active .city-scene__flow { animation: route-flow 3.6s linear infinite; }
-.city-scene.is-active .city-scene__node { animation: waypoint-pulse 2.8s ease-in-out infinite; }
-.city-scene.is-active .city-scene__node:nth-of-type(2) { animation-delay: 260ms; }
-.city-scene.is-active .city-scene__node:nth-of-type(3) { animation-delay: 520ms; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .city-scene.motion-ready .city-scene__route {
+      animation: route-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+  }
+}
 .city-scene__content { position: relative; z-index: 1; }
 .city-scene h2 {
   max-width: 900px;
@@ -136,7 +140,7 @@
   line-height: 0.98;
   text-wrap: balance;
 }
-.city-scene h2 em { color: inherit; font-family: inherit; font-style: normal; font-weight: inherit; }
+.city-scene h2 em { font-style: normal; }
 .city-scene__content p { max-width: 470px; margin: 24px 0 0; color: #e0e0e0; font-size: 15px; line-height: 1.75; }
 .approach { background: #ffffff; scroll-margin-top: 80px; }
 .approach__heading {
@@ -151,11 +155,14 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
   margin-top: clamp(54px, 8vw, 98px);
   border-top: 1px solid #cfcfcf;
 }
-.approach__step { position: relative; min-width: 0; padding: 32px clamp(18px, 3vw, 42px) 0 0; }
-.approach__step + .approach__step { padding-left: clamp(18px, 3vw, 42px); border-left: 1px solid #d8d8d8; }
+.approach__step { position: relative; min-width: 0; padding: 30px clamp(22px, 3vw, 36px) 36px; background: #f3f3f0; }
+.approach__step:nth-child(2) { background: #e9e9e5; }
+.approach__step:nth-child(3) { background: #111; color: #fff; }
+.approach__art { display: block; width: min(100%, 180px); height: 80px; margin: 30px 0 28px; color: currentColor; opacity: .7; }
 .approach__node {
   position: absolute;
   top: -5px;
@@ -167,15 +174,12 @@
   background: #ffffff;
 }
 .approach__step + .approach__step .approach__node { left: clamp(18px, 3vw, 42px); }
+.approach__step:first-child .approach__node { left: clamp(22px, 3vw, 36px); }
 .approach__index { color: #505050; font-size: 11px; font-weight: 650; letter-spacing: 0.08em; }
 .approach__step h3 { margin: 16px 0 8px; font-size: clamp(23px, 2.4vw, 31px); font-weight: 570; letter-spacing: -0.035em; }
 .approach__step p { max-width: 330px; margin: 0; color: #505050; font-size: 13px; line-height: 1.75; }
+.approach__step:nth-child(3) p, .approach__step:nth-child(3) .approach__index { color: #d2d2d2; }
 @keyframes route-draw { to { stroke-dashoffset: 0; } }
-@keyframes route-flow { to { stroke-dashoffset: -1; } }
-@keyframes waypoint-pulse {
-  0%, 100% { opacity: 0.65; transform: scale(0.82); }
-  50% { opacity: 1; transform: scale(1.28); }
-}
 @media (max-width: 900px) {
   .identity__grid, .capabilities__heading, .approach__heading { grid-template-columns: 1fr; gap: 28px; }
   .identity__copy { max-width: 560px; margin-left: min(14vw, 110px); }
@@ -200,11 +204,13 @@
   .city-scene h2 { font-size: clamp(46px, 12vw, 66px); }
   .city-scene__content p { max-width: 355px; font-size: 14px; }
   .approach__timeline { grid-template-columns: 1fr; margin-top: 44px; border-top: 0; }
-  .approach__step, .approach__step + .approach__step { padding: 0 0 25px 24px; border-left: 1px solid #d0d0d0; }
-  .approach__step + .approach__step { padding-top: 9px; }
-  .approach__node, .approach__step + .approach__step .approach__node { top: 4px; left: -5px; }
+  .approach__timeline::before { display: none; }
+  .approach__step { padding: 24px; }
+  .approach__node, .approach__step:first-child .approach__node, .approach__step + .approach__step .approach__node { top: 29px; left: auto; right: 25px; }
+  .approach__art { margin: 20px 0; height: 64px; }
   .approach__step h3 { margin: 8px 0 5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .capability-card.motion-ready .capability-card__route { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .approach__timeline::before { transform: none; animation: none; }
 }

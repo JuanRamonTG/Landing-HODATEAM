@@ -76,12 +76,11 @@
 }
 
 .site-header__nav a:not(.site-header__contact)[aria-current='location'] {
-  background: #ffffff;
-  color: #050505;
+  color: #ffffff;
 }
 
-.site-header__nav a[aria-current='location']::after {
-  transform: scaleX(0);
+.site-header__nav a:not(.site-header__contact)[aria-current='location']::after {
+  transform: scaleX(1);
 }
 
 .site-header__nav .site-header__contact {
@@ -134,7 +133,10 @@
     background: transparent;
     color: var(--text);
     cursor: pointer;
+    transition: background-color 200ms ease, border-color 200ms ease;
   }
+
+  .site-header__toggle[aria-expanded='true'] { background: #fff; border-color: #fff; color: #050505; }
 
   .site-header__toggle span {
     width: 15px;
@@ -153,27 +155,43 @@
 
   .site-header__nav {
     position: absolute;
-    inset: calc(100% + 5px) 14px auto;
+    inset: calc(100% + 6px) 14px auto auto;
     display: flex;
     align-items: stretch;
     flex-direction: column;
+    width: min(340px, calc(100vw - 28px));
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     gap: 0;
-    padding: 6px 15px;
+    padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
     background: #050505;
-    opacity: 0;
     pointer-events: none;
-    transform: translateY(-5px);
+    clip-path: ellipse(0% 0% at 94% 0%);
+    transform: translateY(-12px) scale(.94);
+    transform-origin: 94% 0;
     visibility: hidden;
-    transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+    transition: clip-path 420ms cubic-bezier(.65,0,.35,1), transform 420ms cubic-bezier(.65,0,.35,1), visibility 0s linear 420ms;
   }
 
   .site-header__nav--open {
-    opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    clip-path: ellipse(150% 155% at 94% 0%);
+    transform: translateY(0) scale(1);
     visibility: visible;
+    transition: clip-path 620ms cubic-bezier(.65,0,.35,1), transform 620ms cubic-bezier(.16,1,.3,1), visibility 0s;
   }
+
+  .site-header__nav a, .site-header__nav a.site-header__contact { opacity: 0; transform: translate(14px, -8px); transition: opacity 150ms ease, transform 200ms ease, color 160ms ease, background-color 160ms ease; }
+  .site-header__nav--open a, .site-header__nav--open a.site-header__contact { opacity: 1; transform: translate(0, 0); transition: opacity 300ms ease, transform 440ms cubic-bezier(.16,1,.3,1), color 160ms ease, background-color 160ms ease; }
+  .site-header__nav--open a:nth-child(1) { transition-delay: 100ms; }
+  .site-header__nav--open a:nth-child(2) { transition-delay: 145ms; }
+  .site-header__nav--open a:nth-child(3) { transition-delay: 190ms; }
+  .site-header__nav--open a:nth-child(4) { transition-delay: 235ms; }
+  .site-header__nav--open a:nth-child(5) { transition-delay: 280ms; }
+  .site-header__nav--open a:nth-child(6) { transition-delay: 325ms; }
 
   .site-header__nav a:not(.site-header__contact) {
     justify-content: flex-start;
@@ -182,6 +200,10 @@
   }
 
   .site-header__nav a:not(.site-header__contact)::after { content: none; }
+  .site-header__nav a:not(.site-header__contact)[aria-current='location'] {
+    background: rgba(255, 255, 255, .12);
+    box-shadow: inset 2px 0 #fff;
+  }
   .site-header__nav .site-header__contact {
     justify-content: space-between;
     min-height: 44px;
@@ -193,5 +215,6 @@
   .site-header,
   .site-header__nav,
   .site-header__nav a,
+  .site-header__toggle,
   .site-header__toggle span { transition: none; }
 }

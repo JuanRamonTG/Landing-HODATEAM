@@ -14,6 +14,8 @@
   margin-inline: auto;
 }
 
+.contact__route { display: block; width: 180px; height: auto; margin-bottom: clamp(30px, 4vw, 55px); color: #555; }
+
 .contact h2 {
   max-width: 1080px;
   margin: 0;

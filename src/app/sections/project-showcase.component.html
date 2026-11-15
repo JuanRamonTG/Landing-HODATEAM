@@ -1,6 +1,6 @@
 <section id="proyectos" class="project" data-nav-section aria-labelledby="project-title">
   <div class="page-width">
-    <div class="project__intro">
+    <div class="project__intro" data-motion-enter="left">
       <div class="project__headline">
         <h2 id="project-title">StellarTraffic</h2>
         <span class="project__status">Prototipo en desarrollo</span>
@@ -17,7 +17,7 @@
         <ol class="project-steps" data-motion-group>
           @for (screen of screens; track screen.src; let index = $index) {
             <li class="project-step-shell" data-motion-reveal>
-              <button class="project-step" type="button" [attr.aria-pressed]="activeScreen().src === screen.src" (click)="selectScreen(screen)">
+              <button class="project-step" type="button" aria-controls="project-preview" [attr.aria-pressed]="activeScreen().src === screen.src" (click)="selectScreen(screen)">
                 <span class="project-step__index">0{{ index + 1 }}</span>
                 <span class="project-step__copy"><strong>{{ screen.title }}</strong><span>{{ screen.description }}</span></span>
                 <svg aria-hidden="true" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h11M10 5l5 5-5 5" /></svg>
@@ -27,7 +27,7 @@
         </ol>
         <p class="project__caption">Capturas reales del prototipo actual. La interfaz puede cambiar mientras avanza su desarrollo.</p>
       </div>
-      <figure class="project__device" data-motion-reveal>
+      <figure id="project-preview" class="project__device" data-motion-reveal>
         <div class="project__phone">
           <span class="project__phone-island" aria-hidden="true"></span>
           <div class="project__phone-screen">
